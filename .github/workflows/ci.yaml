@@ -17,8 +17,6 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
-      - name: debug
-        run: set -x
       - name: build
         run: docker build --file ${filename} --no-cache --tag ${registry}/${user}/${project}:${tagname} .
       - name: run
