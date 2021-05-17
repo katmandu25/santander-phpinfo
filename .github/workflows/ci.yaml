@@ -1,0 +1,34 @@
+name: ci
+on: 
+  push:
+    branches:
+      - docker
+jobs:
+  Dockerfile:
+    env: 
+      project: santander-phpinfo
+      registry: index.docker.io
+      sleep: "10"
+      user: katamandu25
+      pattern: started
+      filename: Dockerfile
+    runs-on: ubuntu-18.04
+    steps:
+      - name: checkout # Es el git clone
+        uses: actions/checkout@v2
+      - name: debug # Activa el debug
+        run: set -x
+      - name: build # Construimos el docker
+        run: docker build --file $filename} --no-cache --tag ${registry}/${user}/${project}:ci .
+      - name: run # Lo ejecutamos El detach hace q no utilize el terminal
+        run: docker run --detach --name santander-phpinfo ${registry}/${user}/${project}:ci
+      - name: test # Ejecuta el log de la aplicación hasta q localiza started y se para
+        run: while true ; do sleep ${sleep} ; docker logs santander-php-info 2>& 1 | grep ${pattern} && break ; done
+      - name: top 
+        run: docker top ${project}
+      - name: stats
+        run: docker stats --no-stream ${project}
+      - name: inspect
+        run: docker inspect ${project}
+      - name: history
+        run: docker history ${registry}/${user}/${project}:ci
