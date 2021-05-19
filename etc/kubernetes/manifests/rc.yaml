@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: rc
+  # namespace: katmandu25-santander-phpinfo Lo quitamos porque asi no falla al importarlo desde otro proyecto.
+spec:
+  replicas: 2
+  selector:
+    app: santander-phpinfo
+  template:
+    metadata:
+    #  name: hello-openshift  Este nombre lo elige de forma aleatoria. No vale.
+      labels:
+        app: santander-phpinfo
+    spec:
+      containers:
+        - name: php
+          image: index.docker.io/katmandu25/santander-phpinfo:latest
+          ports:
+            - containerPort: 8080
