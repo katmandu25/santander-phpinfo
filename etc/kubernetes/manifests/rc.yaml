@@ -28,10 +28,10 @@ spec:
             - name: nombre_alumno
               value: katmandu25
           resources:  # Si no lo configuramos nos pueden machacar el contenedor
-            limits:
+            limits:  # Buena practica poner limit = request para evitar overcommit. 
               cpu: 40m
               memory: 40M
-            requests:
+            requests:  # Es lo mínimo con lo que arranca el contenedor
               cpu: 20m
               memory: 20M
           terminationMessagePath: /dev/termination-log
