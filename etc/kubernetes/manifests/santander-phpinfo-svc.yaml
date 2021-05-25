@@ -9,5 +9,5 @@ spec:
       protocol: TCP
       targetPort: 8080
   selector:
-    app: santander-phpinfo-service # tambien se puede poner  {app: santander-phpinfo-service}
+    app: santander-phpinfo-dc # tambien se puede poner  {app: santander-phpinfo-service} Es el nombre del pod que lo usa
     
