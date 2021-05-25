@@ -1,0 +1,28 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  name: santander-phpinfo-dc
+  namespace: katmandu-santander-phpinfo 
+spec:
+  selector:
+    app: santander-phpinfo-dc # Se repite en la 13 por herencia de versiones antiguas
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: santander-phpinfo-dc # Se repite en la 8 por herencia de versiones antiguas. Tienen que ser iguales.
+    spec:
+      containers:
+        - 
+          # args: ["-f", "index.php", "-S", "0.0.0.0:8080"]  El array se puede poner asi o con guiones
+          args: 
+            - -f
+            - index.php
+            - -S
+            - 0.0.0.0:8080
+          command:
+            - php
+          image: index.docker.io/katmandu25/santander-phpinfo:latest
+          name: phpinfo-container
+          ports:
+            - containerPort: 8080
