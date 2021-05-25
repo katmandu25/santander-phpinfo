@@ -26,3 +26,6 @@ spec:
           name: phpinfo-container
           ports:
             - containerPort: 8080
+    imagePullSecrets:
+      -
+        docker-login
